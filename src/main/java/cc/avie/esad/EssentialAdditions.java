@@ -1,6 +1,7 @@
 package cc.avie.esad;
 
 import cc.avie.esad.config.EsadConfig;
+import cc.avie.esad.feature.dynamiclights.DynamicLights;
 import cc.avie.esad.feature.zoom.Zoom;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -19,6 +20,7 @@ public class EssentialAdditions implements ClientModInitializer {
 		// Key mappings first, the config shows them in the TabbyLib screen
 		Zoom.register();
 		EsadConfig.init();
+		DynamicLights.register();
 	}
 
 	public static Identifier id(String path) {

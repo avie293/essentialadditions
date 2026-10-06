@@ -1,6 +1,7 @@
 package cc.avie.esad.config;
 
 import cc.avie.esad.EssentialAdditions;
+import cc.avie.esad.feature.dynamiclights.UpdateRate;
 import cc.avie.esad.feature.zoom.Zoom;
 import cc.avie.esad.feature.zoom.ZoomEasing;
 import cc.avie.esad.feature.zoom.ZoomMode;
@@ -49,6 +50,26 @@ public final class EsadConfig {
 	public static final BooleanOption HIDE_HAND = BooleanOption.builder("hideHand", true)
 		.dependsOn(ZOOM_ENABLED).build();
 
+	// ---------------------------------------------------------------- dynamic lights
+	public static final BooleanOption DYNAMIC_LIGHTS_ENABLED = BooleanOption.builder("dynamicLightsEnabled", true).build();
+	public static final EnumOption<UpdateRate> DYNAMIC_LIGHTS_UPDATE_RATE = EnumOption.builder("dynamicLightsUpdateRate", UpdateRate.REALTIME)
+		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
+	public static final IntOption DYNAMIC_LIGHTS_RANGE = IntOption.builder("dynamicLightsRange", 64)
+		.slider(16, 128, 8).formatter(value -> Component.translatable("config.esad.unit.blocks", value)).dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
+
+	public static final BooleanOption DYNAMIC_LIGHTS_SELF = BooleanOption.builder("dynamicLightsSelf", true)
+		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
+	public static final BooleanOption DYNAMIC_LIGHTS_HELD_ITEMS = BooleanOption.builder("dynamicLightsHeldItems", true)
+		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
+	public static final BooleanOption DYNAMIC_LIGHTS_DROPPED_ITEMS = BooleanOption.builder("dynamicLightsDroppedItems", true)
+		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
+	public static final BooleanOption DYNAMIC_LIGHTS_BURNING = BooleanOption.builder("dynamicLightsBurning", true)
+		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
+	public static final BooleanOption DYNAMIC_LIGHTS_ENTITIES = BooleanOption.builder("dynamicLightsEntities", true)
+		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
+	public static final BooleanOption DYNAMIC_LIGHTS_WATER_SENSITIVE = BooleanOption.builder("dynamicLightsWaterSensitive", true)
+		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
+
 	public static TabbyConfig CONFIG;
 
 	private EsadConfig() {
@@ -61,6 +82,10 @@ public final class EsadConfig {
 				.group("scroll", group -> group.add(SCROLL_ZOOM, SCROLL_STEP, MAX_ZOOM, RETAIN_SCROLL_ZOOM))
 				.group("animation", group -> group.add(ZOOM_IN_TIME, ZOOM_OUT_TIME, ZOOM_EASING, SMOOTH_SCROLL))
 				.group("camera", group -> group.add(RELATIVE_SENSITIVITY, CINEMATIC_CAMERA, HIDE_HAND)))
+			.category("dynamicLights", category -> category
+				.add(DYNAMIC_LIGHTS_ENABLED, DYNAMIC_LIGHTS_UPDATE_RATE, DYNAMIC_LIGHTS_RANGE)
+				.group("lightSources", group -> group.add(DYNAMIC_LIGHTS_SELF, DYNAMIC_LIGHTS_HELD_ITEMS,
+					DYNAMIC_LIGHTS_DROPPED_ITEMS, DYNAMIC_LIGHTS_BURNING, DYNAMIC_LIGHTS_ENTITIES, DYNAMIC_LIGHTS_WATER_SENSITIVE)))
 			.build();
 	}
 
