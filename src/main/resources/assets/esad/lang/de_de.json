@@ -42,5 +42,29 @@
   "config.esad.cinematicCamera": "Filmische Kamera",
   "config.esad.cinematicCamera.tooltip": "Glättet die Kamerabewegung beim Zoomen, wie die filmische Kamera von Vanilla.",
   "config.esad.hideHand": "Hand ausblenden",
-  "config.esad.hideHand.tooltip": "Blendet Hand und gehaltenen Gegenstand beim Zoomen aus."
+  "config.esad.hideHand.tooltip": "Blendet Hand und gehaltenen Gegenstand beim Zoomen aus.",
+
+  "config.esad.unit.blocks": "%s Blöcke",
+
+  "config.esad.category.dynamicLights": "Dynamisches Licht",
+  "config.esad.group.lightSources": "Lichtquellen",
+  "config.esad.dynamicLightsEnabled": "Dynamisches Licht aktivieren",
+  "config.esad.dynamicLightsEnabled.tooltip": "Gehaltene Fackeln, fallengelassene Lichtgegenstände sowie brennende und leuchtende Entities beleuchten die Blöcke um sich herum. Nur optisch, Monster spawnen trotzdem im Dunkeln.",
+  "config.esad.dynamicLightsUpdateRate": "Aktualisierungsrate",
+  "config.esad.dynamicLightsUpdateRate.tooltip": "Wie oft sich bewegende Lichter aktualisiert werden. Jede Aktualisierung baut die Chunks drumherum neu, langsamere Stufen helfen auf schwachen PCs.",
+  "config.esad.dynamicLightsUpdateRate.slow": "Langsam (0,5s)",
+  "config.esad.dynamicLightsUpdateRate.fast": "Schnell (0,25s)",
+  "config.esad.dynamicLightsUpdateRate.realtime": "Echtzeit",
+  "config.esad.dynamicLightsRange": "Reichweite",
+  "config.esad.dynamicLightsRange.tooltip": "Nur Lichtquellen in dieser Entfernung zu dir werden verwendet.",
+  "config.esad.dynamicLightsSelf": "Eigenes Licht",
+  "config.esad.dynamicLightsSelf.tooltip": "Licht von Gegenständen, die du selbst hältst.",
+  "config.esad.dynamicLightsHeldItems": "Gehaltene Gegenstände",
+  "config.esad.dynamicLightsHeldItems.tooltip": "Spieler und Mobs, die eine Lichtquelle halten, z. B. eine Fackel.",
+  "config.esad.dynamicLightsDroppedItems": "Fallengelassene Gegenstände",
+  "config.esad.dynamicLightsBurning": "Brennende Entities",
+  "config.esad.dynamicLightsEntities": "Leuchtende Entities",
+  "config.esad.dynamicLightsEntities.tooltip": "Lohen, Magmawürfel, Leuchttintenfische, Feuerbälle, gezündetes TNT, Spektralpfeile und Creeper kurz vor der Explosion.",
+  "config.esad.dynamicLightsWaterSensitive": "Unter Wasser erlöschen",
+  "config.esad.dynamicLightsWaterSensitive.tooltip": "Fackeln, Lagerfeuer, Lavaeimer und ähnliche Gegenstände leuchten unter Wasser nicht."
 }
