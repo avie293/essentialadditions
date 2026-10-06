@@ -42,5 +42,29 @@
   "config.esad.cinematicCamera": "Cinematic Camera",
   "config.esad.cinematicCamera.tooltip": "Smooths the camera movement while zooming, like the vanilla cinematic camera.",
   "config.esad.hideHand": "Hide Hand",
-  "config.esad.hideHand.tooltip": "Hides your hand and held item while zooming."
+  "config.esad.hideHand.tooltip": "Hides your hand and held item while zooming.",
+
+  "config.esad.unit.blocks": "%s blocks",
+
+  "config.esad.category.dynamicLights": "Dynamic Lights",
+  "config.esad.group.lightSources": "Light Sources",
+  "config.esad.dynamicLightsEnabled": "Enable Dynamic Lights",
+  "config.esad.dynamicLightsEnabled.tooltip": "Held torches, dropped light items, burning and glowing entities light up the blocks around them. Only visual, mobs still spawn in the dark.",
+  "config.esad.dynamicLightsUpdateRate": "Update Rate",
+  "config.esad.dynamicLightsUpdateRate.tooltip": "How often moving lights are updated. Every update rebuilds the chunks around them, slower rates help on weak PCs.",
+  "config.esad.dynamicLightsUpdateRate.slow": "Slow (0.5s)",
+  "config.esad.dynamicLightsUpdateRate.fast": "Fast (0.25s)",
+  "config.esad.dynamicLightsUpdateRate.realtime": "Realtime",
+  "config.esad.dynamicLightsRange": "Range",
+  "config.esad.dynamicLightsRange.tooltip": "Only light sources this close to you are used.",
+  "config.esad.dynamicLightsSelf": "Own Light",
+  "config.esad.dynamicLightsSelf.tooltip": "Light from items you hold yourself.",
+  "config.esad.dynamicLightsHeldItems": "Held Items",
+  "config.esad.dynamicLightsHeldItems.tooltip": "Players and mobs holding a light source, e.g. a torch.",
+  "config.esad.dynamicLightsDroppedItems": "Dropped Items",
+  "config.esad.dynamicLightsBurning": "Burning Entities",
+  "config.esad.dynamicLightsEntities": "Glowing Entities",
+  "config.esad.dynamicLightsEntities.tooltip": "Blazes, magma cubes, glow squids, fireballs, primed TNT, spectral arrows and creepers about to explode.",
+  "config.esad.dynamicLightsWaterSensitive": "Go Out Under Water",
+  "config.esad.dynamicLightsWaterSensitive.tooltip": "Torches, campfires, lava buckets and similar items give no light under water."
 }
