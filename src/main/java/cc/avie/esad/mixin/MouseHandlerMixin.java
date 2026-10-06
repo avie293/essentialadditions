@@ -1,5 +1,6 @@
 package cc.avie.esad.mixin;
 
+import cc.avie.esad.feature.freelook.Freelook;
 import cc.avie.esad.feature.zoom.Zoom;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
@@ -16,6 +17,11 @@ public class MouseHandlerMixin {
 	@WrapOperation(method = "turnPlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;turn(DD)V"))
 	private void esad$zoomSensitivity(LocalPlayer player, double yaw, double pitch, Operation<Void> original) {
 		double multiplier = Zoom.sensitivityMultiplier();
+		if (Freelook.isActive()) {
+			// Freelook turns only the camera, the player keeps its direction
+			Freelook.turn(yaw * multiplier, pitch * multiplier);
+			return;
+		}
 		original.call(player, yaw * multiplier, pitch * multiplier);
 	}
 
