@@ -1,0 +1,32 @@
+{
+	"schemaVersion": 1,
+	"id": "esad",
+	"version": "${version}",
+	"name": "EssentialAdditions",
+	"description": "Small quality of life features, configured with TabbyLib.",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/esad/icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"cc.avie.esad.EssentialAdditions"
+		]
+	},
+	"mixins": [
+		"esad.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.1.1",
+		"java": ">=25",
+		"fabric-api": "*",
+		"tabbylib": ">=1.0.0"
+	}
+}
