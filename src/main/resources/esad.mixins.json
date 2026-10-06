@@ -3,14 +3,23 @@
 	"package": "cc.avie.esad.mixin",
 	"compatibilityLevel": "JAVA_25",
 	"client": [
+		"BlockOutlineMixin",
 		"CameraMixin",
+		"ChatMixin",
+		"ContainerContentsMixin",
+		"ContainerScreenAccessor",
+		"ContainerScreenKeyMixin",
 		"EntityRendererMixin",
+		"FreelookCameraMixin",
 		"HandRendererMixin",
 		"ItemStackMixin",
 		"LightCoordsMixin",
+		"LightmapMixin",
 		"MouseHandlerMixin",
 		"NametagPingMixin",
-		"PlayerTabOverlayMixin"
+		"PlayerTabOverlayMixin",
+		"TakeItemMixin",
+		"VanillaEffectsMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

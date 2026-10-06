@@ -15,6 +15,7 @@ import cc.avie.esad.feature.zoom.ZoomEasing;
 import cc.avie.esad.feature.zoom.ZoomMode;
 import cc.avie.esad.gui.EsadConfigScreen;
 import cc.avie.esad.gui.Feature;
+import cc.avie.esad.gui.FeatureIcon;
 import me.avie29.tabbylib.api.ConfigCategory;
 import me.avie29.tabbylib.api.HudPosition;
 import me.avie29.tabbylib.api.TabbyConfig;
@@ -27,7 +28,6 @@ import me.avie29.tabbylib.api.option.IntOption;
 import me.avie29.tabbylib.api.option.KeyBindOption;
 import me.avie29.tabbylib.api.option.StringOption;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 import java.io.IOException;
@@ -124,6 +124,17 @@ public final class EsadConfig {
 
 	public static final EnumOption<TooltipMode> TOOLTIP_MAP = EnumOption.builder("tooltipMap", TooltipMode.ALWAYS)
 		.dependsOn(TOOLTIPS_ENABLED).build();
+	public static final EnumOption<TooltipMode> TOOLTIP_CONTAINER = EnumOption.builder("tooltipContainer", TooltipMode.ALWAYS)
+		.dependsOn(TOOLTIPS_ENABLED).build();
+	public static final BooleanOption TOOLTIP_CONTAINER_COLOR = BooleanOption.builder("tooltipContainerColor", true)
+		.dependsOn(TOOLTIPS_ENABLED).build();
+	public static final BooleanOption TOOLTIP_CONTAINER_HIDE_LIST = BooleanOption.builder("tooltipContainerHideList", true)
+		.dependsOn(TOOLTIPS_ENABLED).build();
+	public static final EnumOption<TooltipMode> TOOLTIP_ENDER_CHEST = EnumOption.builder("tooltipEnderChest", TooltipMode.ALWAYS)
+		.dependsOn(TOOLTIPS_ENABLED).build();
+	public static final EnumOption<TooltipMode> TOOLTIP_TOOL = EnumOption.builder("tooltipTool", TooltipMode.SHIFT)
+		.dependsOn(TOOLTIPS_ENABLED).build();
+
 	public static final IntOption TOOLTIP_MAP_SIZE = IntOption.builder("tooltipMapSize", 64)
 		.slider(32, 128, 16).formatter(value -> Component.literal(value + " px")).dependsOn(TOOLTIPS_ENABLED).build();
 
@@ -180,6 +191,22 @@ public final class EsadConfig {
 	public static final IntOption PING_BAD_BELOW = IntOption.builder("pingBadBelow", 200)
 		.slider(50, 1000, 10).formatter(EsadConfig::milliseconds).build();
 
+	/** Features with their own config class, in the order of their cards. */
+	public static final List<FeatureConfig> EXTRA_FEATURES = List.of(
+		FullbrightConfig.INSTANCE,
+		InfoHudConfig.INSTANCE,
+		ArmorHudConfig.INSTANCE,
+		EffectsHudConfig.INSTANCE,
+		KeystrokesConfig.INSTANCE,
+		ToggleSprintConfig.INSTANCE,
+		SleepReminderConfig.INSTANCE,
+		PickupNotifierConfig.INSTANCE,
+		BlockOutlineConfig.INSTANCE,
+		ChatConfig.INSTANCE,
+		FreelookConfig.INSTANCE,
+		InventorySortConfig.INSTANCE
+	);
+
 	public static TabbyConfig CONFIG;
 
 	private EsadConfig() {
@@ -206,7 +233,9 @@ public final class EsadConfig {
 				.add(TOOLTIPS_ENABLED, TOOLTIP_SHIFT_HINT)
 				.group("durability", group -> group.add(TOOLTIP_DURABILITY, TOOLTIP_DURABILITY_STYLE, TOOLTIP_DURABILITY_COLOR,
 					TOOLTIP_DURABILITY_LABEL, TOOLTIP_DURABILITY_WHEN_FULL))
-				.group("itemInfo", group -> group.add(TOOLTIP_FOOD, TOOLTIP_FUEL, TOOLTIP_REPAIR_COST, TOOLTIP_ENCHANTMENTS))
+				.group("itemInfo", group -> group.add(TOOLTIP_FOOD, TOOLTIP_FUEL, TOOLTIP_REPAIR_COST, TOOLTIP_ENCHANTMENTS, TOOLTIP_TOOL))
+				.group("containerPreview", group -> group.add(TOOLTIP_CONTAINER, TOOLTIP_CONTAINER_COLOR, TOOLTIP_CONTAINER_HIDE_LIST,
+					TOOLTIP_ENDER_CHEST))
 				.group("itemOrigin", group -> group.add(TOOLTIP_MOD_NAME, TOOLTIP_ITEM_ID))
 				.group("mapPreview", group -> group.add(TOOLTIP_MAP, TOOLTIP_MAP_SIZE)));
 
@@ -231,6 +260,9 @@ public final class EsadConfig {
 				.group("pingRanges", group -> group
 					.label(Component.translatable("config.esad.pingRanges.description"))
 					.add(PING_GOOD_BELOW, PING_OK_BELOW, PING_BAD_BELOW)));
+		}
+		for (FeatureConfig feature : EXTRA_FEATURES) {
+			builder.category(feature.category());
 		}
 		CONFIG = builder.build();
 		removeOldFile();
@@ -259,12 +291,16 @@ public final class EsadConfig {
 		List<Feature> features = new ArrayList<>();
 		for (ConfigCategory category : CONFIG.getCategories()) {
 			Feature feature = switch (category.getKey()) {
-				case "zoom" -> new Feature(category, new ItemStack(Items.SPYGLASS), ZOOM_ENABLED);
-				case "dynamicLights" -> new Feature(category, new ItemStack(Items.TORCH), DYNAMIC_LIGHTS_ENABLED);
-				case "tooltips" -> new Feature(category, new ItemStack(Items.WRITABLE_BOOK), TOOLTIPS_ENABLED);
-				case "dayCounter" -> new Feature(category, new ItemStack(Items.CLOCK), DAY_COUNTER_VISIBLE);
-				case "pingDisplay" -> new Feature(category, new ItemStack(Items.COMPASS), PING_ENABLED);
-				default -> null;
+				case "zoom" -> new Feature(category, FeatureIcon.of(Items.SPYGLASS), ZOOM_ENABLED);
+				case "dynamicLights" -> new Feature(category, FeatureIcon.of(Items.TORCH, "block/torch"), DYNAMIC_LIGHTS_ENABLED);
+				case "tooltips" -> new Feature(category, FeatureIcon.of(Items.WRITABLE_BOOK), TOOLTIPS_ENABLED);
+				case "dayCounter" -> new Feature(category, FeatureIcon.of(Items.CLOCK, "item/clock_00"), DAY_COUNTER_VISIBLE);
+				case "pingDisplay" -> new Feature(category, FeatureIcon.of(Items.COMPASS, "item/compass_00"), PING_ENABLED);
+				default -> EXTRA_FEATURES.stream()
+					.filter(extra -> extra.key().equals(category.getKey()))
+					.findFirst()
+					.map(extra -> new Feature(category, extra.icon(), extra.toggle()))
+					.orElse(null);
 			};
 			if (feature != null) {
 				features.add(feature);

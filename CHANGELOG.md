@@ -3,7 +3,31 @@
 All notable changes to EssentialAdditions are listed here. Every Minecraft version (26.1, 26.1.1, 26.1.2, 26.2 and
 26.3) gets the same features unless a section says otherwise.
 
-## 1.0.0 (unreleased)
+## 1.0.2 (unreleased)
+
+### Fixed
+- Inventory Sorting did nothing in the creative inventory, it only worked in chests and the survival inventory.
+  The creative inventory was left out on purpose because inventory clicks work differently there. Now the sort key
+  also works on its inventory tab: the sorted inventory is computed first and every changed slot is sent to the
+  server like the creative inventory does itself, with the same order, merging and hotbar setting as in survival.
+  The item tabs and the search are not affected, so the key can still be typed into the search field. Middle click
+  stays off in creative, where it copies items.
+
+## 1.0.1
+
+### Fixed
+- The settings window could not be opened from the main menu, only in a world: the "Settings" button in the
+  TabbyLib menu did nothing. Since 26.1 the data of items is only loaded together with a world, and the cards of
+  the window created their item icons right away, which failed before the first world was joined. The cards now
+  draw the flat item texture as long as no world was loaded, and the real item afterwards.
+- The HUD editor previews of the Armor HUD and the Pickup Notifications crashed in the main menu for the same
+  reason. Without a world they now show no example items.
+
+### Changed
+- New card icons where the old item has no flat texture for the main menu: Keystrokes shows a lever, Toggle Sprint
+  a feather and Inventory Sorting a bundle.
+
+## 1.0.0 (development)
 
 First release. EssentialAdditions bundles small quality of life features in one client side mod. Every feature can
 be turned on and off on its own, and all of them are configured in one settings window.
@@ -77,6 +101,15 @@ be turned on and off on its own, and all of them are configured in one settings 
   English and German.
 - Mod name and item id. The mod name is left out when Mod Menu is installed, because Mod Menu adds it itself.
 - Map preview: filled maps are shown as a picture in the tooltip, size 32 - 128 pixels.
+- Shulker box preview: the content of shulker boxes is shown as an inventory grid with item counts and durability
+  bars, tinted in the color of the box (can be turned off). Other filled containers (e.g. chests picked up with
+  their content) show the rows they use. The vanilla text list of the content is hidden while the preview is shown
+  (can be turned off).
+- Ender chest preview: ender chest items show the content of your ender chest. The client only knows it while the
+  ender chest is open, so it is remembered from the last time you opened it, until you leave the world; before
+  that a hint says to open it once.
+- Tool info: mining speed (also the speed with the Efficiency level of the item) and the mining level of tools
+  (wood, stone, copper, iron, gold, diamond, netherite), read from the tool component, so modded tools work too.
 - "Hold Shift for more info" hint when an info is only visible with Shift (can be turned off).
 - No duplicate lines with the vanilla advanced tooltips (F3 + H): durability and item id are left out then.
 
@@ -133,7 +166,7 @@ be turned on and off on its own, and all of them are configured in one settings 
 - Held items without durability (blocks, arrows, food) show how many of them are in your whole inventory (can be
   turned off, then the stack size is shown).
 - Warning: items with less durability left than the warning limit (0 - 50%, default 10%) are drawn in red, and a
-  blinking "Low durability!" appears above the HUD (can be turned off). 0% turns the warning off.
+  blinking "Low durability!" appears above the HUD, right aligned (can be turned off). 0% turns the warning off.
 - Appearance like every HUD of the mod: position (default bottom right), size, background and text shadow.
 - The HUD editor preview uses your real equipment, or example items when you wear nothing.
 - Off by default.
@@ -158,9 +191,92 @@ be turned on and off on its own, and all of them are configured in one settings 
 - Clicks per second (CPS) of the last second on the mouse buttons, or "LMB" / "RMB" without it.
 - Mouse buttons and jump key can be turned off.
 - Own colors for keys, pressed keys, text and pressed text (with transparency).
-- Appearance like every HUD of the mod: position (default bottom left), size and text shadow; the background box
+- Appearance like every HUD of the mod: position (default left edge, middle), size and text shadow; the background box
   behind all keys is off by default, as every key has its own.
 - Off by default.
+
+### Toggle Sprint
+- Own keys for toggle sprint and toggle sneak: one press keeps you sprinting or sneaking until the next press. Both
+  keys are unbound by default, so they do not take keys that are already in use; set them in the settings window
+  or in the controls screen.
+- "Always sprint": sprints whenever you walk forward, without any key.
+- Works by holding down the vanilla sprint / sneak key, so it behaves exactly like holding them yourself and works
+  on every server. While a screen (inventory, chat, ...) is open nothing is held.
+- When toggled off, the keys go back to the state of your physical keys.
+- Optional: remember the toggled states after leaving the world or restarting the game.
+- Status text like "[Sprinting (Toggled)]" / "[Sneaking (Toggled)]", optionally also for normal sprinting and
+  sneaking, with own text color, position (default top middle), size, background and text shadow.
+- Off by default.
+
+### Sleep Reminder
+- A message (above the hotbar or in the chat) with an optional bell sound when the night starts and beds can be
+  used.
+- Also when a thunderstorm starts at day, as beds work then too (can be turned off).
+- Phantom warning: after a set number of nights without sleep (1 - 5, default 3 like vanilla) the night message
+  becomes a red warning that phantoms can come.
+- The server keeps the real "time since rest" and does not send it to the client, so the mod counts the nights
+  without sleep itself while the game runs; sleeping resets the counter. After a restart it starts at 0 again.
+- Only in the Overworld, where beds work. Joining a world at night does not remind you for the night that is
+  already running.
+- Off by default.
+
+### Pickup Notifications
+- Shows "+12 Coal" with the item icon when you pick up items. Pickups of the same item are added up while the
+  entry is visible, the newest entry is on top.
+- Entries stay for 1 - 10 seconds (default 3) and fade out at the end; at most 1 - 10 entries are shown at once
+  (default 5).
+- Text in the rarity color of the item (e.g. enchanted books in yellow), can be turned off; item icons can be
+  turned off.
+- Optional total in your inventory, e.g. "+12 Coal (76)".
+- Based on the pickup message of the server, so it only counts items you really picked up (not items that were
+  given to you by commands or moved in the inventory). Works on every server.
+- Appearance like every HUD of the mod: position (default right side, below the middle), size, background (off by
+  default) and text shadow. The entries are right aligned so the HUD can sit at the right edge.
+- Off by default.
+
+### Block Outline
+- Own color for the outline of the block you look at, with transparency (vanilla: black with 40% opacity).
+- Rainbow mode that cycles through all colors (speed 0.25x - 4x), keeping the transparency of the chosen color.
+- Thickness from 0.5x to 5x of vanilla.
+- The extra black outline of the vanilla high contrast setting stays unchanged.
+- Off by default.
+- Version specific: the outline method is called `submitHitOutline` since 26.2 (`renderHitOutline` before).
+
+### Chat
+- Timestamps in front of every message, e.g. "[14:32]", optionally with seconds, in an own color (default gray).
+- Longer chat history: keeps 100 - 2000 messages for scrolling up (default 500, vanilla 100).
+- Repeated messages: the same message several times in a row is shown once with "(x3)" behind it instead of
+  filling the chat, the counter has its own color. Compares the visible text, so it also works for messages from
+  servers and plugins.
+- Clearing the chat (e.g. F3 + D) also resets the repeat counter.
+- Only changes what your own client shows, nothing is sent to the server.
+- Off by default.
+
+### Freelook
+- Look around freely while a key is held (default: Left Alt), like the Perspective mod: the mouse turns only the
+  camera, your player keeps walking and looking in the same direction. When you let go, the camera snaps back.
+- Key mode: hold, or press once to toggle.
+- Switches to third person while looking around so you can see yourself, and back to the previous view afterwards
+  (can be turned off to look around in first person).
+- Up / down can be inverted.
+- Works together with the zoom: the lower zoom sensitivity also applies to freelook.
+- Only the camera of your own client moves, the server still sees your real looking direction.
+- On by default (it only does something while its key is pressed).
+
+### Inventory Sorting
+- Sorts with a key in any inventory screen (default: R) or with a middle click on a slot (can be turned off).
+- Sorts the inventory under the mouse: your own inventory, or the chest, barrel, shulker box or other container you
+  have open. Without a hovered slot the opened container is sorted, or your inventory if there is none.
+- Your hotbar, armor, off hand and crafting slots stay as they are (the hotbar can be included). Only real
+  storage is sorted: crafting grids, result slots, furnaces and other containers with less than 9 slots are left
+  alone.
+- Merges stacks of the same item first (can be turned off), then orders them: by item id (keeps kinds like all
+  logs together), by name or biggest stacks first. Full stacks come before the rest of the same item.
+- Works only with normal inventory clicks, exactly like sorting by hand, so it works on every server and nothing
+  can get lost. Does nothing while you hold an item on the cursor.
+- In creative mode the sort key works on the inventory tab (since 1.0.2); middle click stays off there, as it
+  copies items.
+- On by default.
 
 ### General
 - Requires Fabric Loader 0.19.5+, Fabric API and TabbyLib 1.1.0+.
