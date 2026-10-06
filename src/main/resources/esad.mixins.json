@@ -4,7 +4,9 @@
 	"compatibilityLevel": "JAVA_25",
 	"client": [
 		"CameraMixin",
+		"EntityRendererMixin",
 		"HandRendererMixin",
+		"LightCoordsMixin",
 		"MouseHandlerMixin"
 	],
 	"injectors": {
