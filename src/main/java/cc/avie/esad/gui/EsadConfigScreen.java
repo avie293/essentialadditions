@@ -36,9 +36,12 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 	private static final int FOOTER = 30;
 	private static final int MAX_WIDTH = 640;
 	private static final int PADDING = 6;
-	private static final int CARD_HEIGHT = 62;
-	private static final int CARD_MAX_WIDTH = 110;
+	private static final int CARD_HEIGHT = 50;
+	private static final int CARD_MIN_WIDTH = 78;
 	private static final int CARD_GAP = 4;
+	/** More rows of cards scroll, so the settings below keep enough room. */
+	private static final int MAX_CARD_ROWS = 2;
+	private static final int SCROLLBAR_WIDTH = 4;
 	private static final int SWITCH_WIDTH = 20;
 	private static final int SWITCH_HEIGHT = 10;
 
@@ -58,6 +61,11 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 	private int windowWidth;
 	private int windowBottom;
 	private int cardWidth;
+	private int columns;
+	private int cardAreaTop;
+	private int cardAreaHeight;
+	private int cardScroll;
+	private int maxCardScroll;
 	private int headerY;
 	private int listTop;
 
@@ -93,10 +101,17 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 		this.windowWidth = Math.min(this.width - 16, MAX_WIDTH);
 		this.windowX = (this.width - this.windowWidth) / 2;
 		this.windowBottom = this.height - FOOTER;
-		int inner = this.windowWidth - PADDING * 2;
+		int inner = this.windowWidth - PADDING * 2 - SCROLLBAR_WIDTH - 2;
 		int count = Math.max(1, this.features.size());
-		this.cardWidth = Math.min(CARD_MAX_WIDTH, (inner - CARD_GAP * (count - 1)) / count);
-		this.headerY = TOP + PADDING + CARD_HEIGHT + 8;
+		this.columns = Math.max(1, Math.min(count, (inner + CARD_GAP) / (CARD_MIN_WIDTH + CARD_GAP)));
+		this.cardWidth = (inner - CARD_GAP * (this.columns - 1)) / this.columns;
+		int rows = (count + this.columns - 1) / this.columns;
+		int visibleRows = Math.min(rows, MAX_CARD_ROWS);
+		this.cardAreaTop = TOP + PADDING;
+		this.cardAreaHeight = visibleRows * (CARD_HEIGHT + CARD_GAP) - CARD_GAP;
+		this.maxCardScroll = Math.max(0, rows * (CARD_HEIGHT + CARD_GAP) - CARD_GAP - this.cardAreaHeight);
+		this.scrollToCard(this.selected);
+		this.headerY = this.cardAreaTop + this.cardAreaHeight + 8;
 		this.listTop = this.headerY + 26;
 
 		this.optionList = new OptionListWidget(this.minecraft, this, this.windowX + 2, this.listTop,
@@ -126,19 +141,35 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 	}
 
 	private int cardX(int index) {
-		return this.windowX + PADDING + index * (this.cardWidth + CARD_GAP);
+		return this.windowX + PADDING + index % this.columns * (this.cardWidth + CARD_GAP);
 	}
 
-	private int cardY() {
-		return TOP + PADDING;
+	private int cardY(int index) {
+		return this.cardAreaTop + index / this.columns * (CARD_HEIGHT + CARD_GAP) - this.cardScroll;
 	}
 
 	private int switchX(int index) {
 		return this.cardX(index) + (this.cardWidth - SWITCH_WIDTH) / 2;
 	}
 
-	private int switchY() {
-		return this.cardY() + CARD_HEIGHT - SWITCH_HEIGHT - 6;
+	private int switchY(int index) {
+		return this.cardY(index) + CARD_HEIGHT - SWITCH_HEIGHT - 3;
+	}
+
+	/** Scrolls the card area so the card is fully visible. */
+	private void scrollToCard(int index) {
+		int top = index / this.columns * (CARD_HEIGHT + CARD_GAP);
+		if (top < this.cardScroll) {
+			this.cardScroll = top;
+		} else if (top + CARD_HEIGHT > this.cardScroll + this.cardAreaHeight) {
+			this.cardScroll = top + CARD_HEIGHT - this.cardAreaHeight;
+		}
+		this.cardScroll = Math.max(0, Math.min(this.maxCardScroll, this.cardScroll));
+	}
+
+	private boolean isInCardArea(double mouseX, double mouseY) {
+		return mouseX >= this.windowX + PADDING && mouseX < this.windowX + this.windowWidth - PADDING
+			&& mouseY >= this.cardAreaTop && mouseY < this.cardAreaTop + this.cardAreaHeight;
 	}
 
 	private @Nullable Feature selectedFeature() {
@@ -170,6 +201,7 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 	private void select(int index) {
 		if (this.selected != index) {
 			this.selected = index;
+			this.scrollToCard(index);
 			this.rebuildOptions();
 			if (this.optionList != null) {
 				this.optionList.setScrollAmount(0);
@@ -323,15 +355,25 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 
 	private boolean isOverCard(int index, double mouseX, double mouseY) {
 		int x = this.cardX(index);
-		int y = this.cardY();
-		return mouseX >= x && mouseX < x + this.cardWidth && mouseY >= y && mouseY < y + CARD_HEIGHT;
+		int y = this.cardY(index);
+		return this.isInCardArea(mouseX, mouseY)
+			&& mouseX >= x && mouseX < x + this.cardWidth && mouseY >= y && mouseY < y + CARD_HEIGHT;
 	}
 
 	/** The switch reacts a bit outside of its frame, it is small. */
 	private boolean isOverSwitch(int index, double mouseX, double mouseY) {
 		int x = this.switchX(index);
-		int y = this.switchY();
-		return mouseX >= x - 3 && mouseX < x + SWITCH_WIDTH + 3 && mouseY >= y - 3 && mouseY < y + SWITCH_HEIGHT + 3;
+		int y = this.switchY(index);
+		return this.isInCardArea(mouseX, mouseY) && mouseX >= x - 3 && mouseX < x + SWITCH_WIDTH + 3 && mouseY >= y - 3 && mouseY < y + SWITCH_HEIGHT + 3;
+	}
+
+	@Override
+	public boolean mouseScrolled(double mouseX, double mouseY, double scrollX, double scrollY) {
+		if (this.maxCardScroll > 0 && this.isInCardArea(mouseX, mouseY)) {
+			this.cardScroll = (int) Math.max(0, Math.min(this.maxCardScroll, this.cardScroll - scrollY * 20));
+			return true;
+		}
+		return super.mouseScrolled(mouseX, mouseY, scrollX, scrollY);
 	}
 
 	// ---------------------------------------------------------------- rendering
@@ -341,8 +383,22 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 		Panel.draw(graphics, this.windowX, TOP, this.windowWidth, this.windowBottom - TOP);
 		graphics.centeredText(this.font, this.title, this.width / 2, 8, 0xFFFFFFFF);
 
+		graphics.enableScissor(this.windowX + PADDING, this.cardAreaTop, this.windowX + this.windowWidth - PADDING,
+			this.cardAreaTop + this.cardAreaHeight);
 		for (int i = 0; i < this.features.size(); i++) {
-			this.drawCard(graphics, i, mouseX, mouseY);
+			int y = this.cardY(i);
+			if (y + CARD_HEIGHT > this.cardAreaTop && y < this.cardAreaTop + this.cardAreaHeight) {
+				this.drawCard(graphics, i, mouseX, mouseY);
+			}
+		}
+		graphics.disableScissor();
+		if (this.maxCardScroll > 0) {
+			int barX = this.windowX + this.windowWidth - PADDING - SCROLLBAR_WIDTH;
+			int contentHeight = this.cardAreaHeight + this.maxCardScroll;
+			int thumbHeight = Math.max(10, this.cardAreaHeight * this.cardAreaHeight / contentHeight);
+			int thumbY = this.cardAreaTop + (this.cardAreaHeight - thumbHeight) * this.cardScroll / this.maxCardScroll;
+			graphics.fill(barX, this.cardAreaTop, barX + SCROLLBAR_WIDTH, this.cardAreaTop + this.cardAreaHeight, 0x40000000);
+			graphics.fill(barX, thumbY, barX + SCROLLBAR_WIDTH, thumbY + thumbHeight, 0xFFA0A0A0);
 		}
 
 		Feature feature = this.selectedFeature();
@@ -372,7 +428,7 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 		Feature feature = this.features.get(index);
 		Font font = this.font;
 		int x = this.cardX(index);
-		int y = this.cardY();
+		int y = this.cardY(index);
 		int w = this.cardWidth;
 		int h = CARD_HEIGHT;
 		int accent = TabbyLibConfig.accentColor();
@@ -391,23 +447,19 @@ public class EsadConfigScreen extends Screen implements OptionHost {
 			graphics.fill(x + 2, y + 2, x + w - 2, y + h - 2, 0x20FFFFFF);
 		}
 
-		// Item icon at double size
-		int iconX = x + w / 2 - 16;
-		int iconY = y + 5;
-		graphics.pose().pushMatrix();
-		graphics.pose().translate(iconX, iconY);
-		graphics.pose().scale(2, 2);
-		graphics.item(feature.icon(), 0, 0);
-		graphics.pose().popMatrix();
+		// Item icon at 1.5 times the size
+		int iconX = x + w / 2 - 12;
+		int iconY = y + 3;
+		feature.icon().draw(graphics, iconX, iconY, 24);
 		if (!enabled) {
-			graphics.fill(iconX, iconY, iconX + 32, iconY + 32, 0x90202020);
+			graphics.fill(iconX, iconY, iconX + 24, iconY + 24, 0x90202020);
 		}
 
 		Component name = feature.name();
 		int nameColor = enabled ? 0xFFFFFFFF : 0xFF909090;
-		graphics.centeredText(font, OptionListWidget.clip(font, name, w - 6), x + w / 2, y + 39, nameColor);
+		graphics.centeredText(font, OptionListWidget.clip(font, name, w - 6), x + w / 2, y + 28, nameColor);
 
-		this.drawSwitch(graphics, this.switchX(index), this.switchY(), enabled, accent, this.isOverSwitch(index, mouseX, mouseY));
+		this.drawSwitch(graphics, this.switchX(index), this.switchY(index), enabled, accent, this.isOverSwitch(index, mouseX, mouseY));
 
 		if (hovered && !this.isOverSwitch(index, mouseX, mouseY)) {
 			graphics.setTooltipForNextFrame(font, font.split(feature.description(), 200), mouseX, mouseY);

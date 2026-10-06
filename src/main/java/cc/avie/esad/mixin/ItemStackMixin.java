@@ -12,7 +12,7 @@ import java.util.Optional;
 @Mixin(ItemStack.class)
 public class ItemStackMixin {
 	@ModifyReturnValue(method = "getTooltipImage", at = @At("RETURN"))
-	private Optional<TooltipComponent> esad$addMapPreview(Optional<TooltipComponent> original) {
-		return AdvancedTooltips.mapTooltip((ItemStack) (Object) this, original);
+	private Optional<TooltipComponent> esad$addPreviews(Optional<TooltipComponent> original) {
+		return AdvancedTooltips.tooltipImage((ItemStack) (Object) this, original);
 	}
 }
