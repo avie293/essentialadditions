@@ -256,5 +256,17 @@
   "config.esad.pingGoodBelow": "Gut unter",
   "config.esad.pingOkBelow": "Mittel unter",
   "config.esad.pingBadBelow": "Schlecht unter",
-  "config.esad.pingRanges.description": "Alles ab dem letzten Wert gilt als sehr schlecht."
+  "config.esad.pingRanges.description": "Alles ab dem letzten Wert gilt als sehr schlecht.",
+
+  "esad.screen.title": "EssentialAdditions",
+  "esad.description": "Kleine Komfort-Features in einer Mod: Zoom, dynamisches Licht, erweiterte Tooltips, ein Tageszähler und eine Ping-Anzeige. Jedes Feature lässt sich einzeln ein- und ausschalten.",
+  "esad.screen.reset": "Feature zurücksetzen",
+  "esad.screen.reset.tooltip": "Setzt alle Einstellungen des ausgewählten Features auf den Standard zurück. Gespeichert wird erst mit Speichern.",
+  "esad.screen.switch.on": "An, klicken zum Ausschalten",
+  "esad.screen.switch.off": "Aus, klicken zum Einschalten",
+  "esad.feature.zoom.description": "Per Taste heranzoomen, mit weicher Animation und Mausrad-Zoom.",
+  "esad.feature.dynamicLights.description": "Gehaltene Fackeln, fallengelassene Lichtquellen und brennende Mobs leuchten ihre Umgebung aus.",
+  "esad.feature.tooltips.description": "Mehr Infos zu Gegenständen: Haltbarkeit, Nährwerte, Brennzeit, Verzauberungen und mehr.",
+  "esad.feature.dayCounter.description": "Zeigt den aktuellen Minecraft-Tag auf dem Bildschirm.",
+  "esad.feature.pingDisplay.description": "Der Ping als farbige Zahl in der Tabliste und auf Namensschildern."
 }
