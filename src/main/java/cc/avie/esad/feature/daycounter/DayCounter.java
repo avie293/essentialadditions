@@ -2,6 +2,7 @@ package cc.avie.esad.feature.daycounter;
 
 import cc.avie.esad.EssentialAdditions;
 import cc.avie.esad.config.EsadConfig;
+import cc.avie.esad.gui.EsadConfigScreen;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import me.avie29.tabbylib.api.TabbyLibApi;
@@ -58,7 +59,7 @@ public final class DayCounter {
 	private static LiteralArgumentBuilder<FabricClientCommandSource> command() {
 		return LiteralArgumentBuilder.<FabricClientCommandSource>literal("dc")
 			.then(LiteralArgumentBuilder.<FabricClientCommandSource>literal("config").executes(context -> {
-				TabbyLibApi.openScreen(EssentialAdditions.MOD_ID);
+				EsadConfigScreen.open("dayCounter");
 				return 1;
 			}))
 			.then(LiteralArgumentBuilder.<FabricClientCommandSource>literal("position").executes(context -> {

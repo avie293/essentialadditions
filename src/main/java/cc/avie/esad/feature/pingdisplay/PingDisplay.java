@@ -29,7 +29,7 @@ public final class PingDisplay {
 	}
 
 	public static boolean showInTabList() {
-		return ACTIVE && EsadConfig.PING_TAB_LIST.get();
+		return ACTIVE && EsadConfig.PING_ENABLED.get() && EsadConfig.PING_TAB_LIST.get();
 	}
 
 	/** Draws the ping right aligned in the space of the vanilla signal bars. */
@@ -94,7 +94,8 @@ public final class PingDisplay {
 
 	/** The name tag with " (42ms)" behind it, or null to keep the original. */
 	public static @Nullable Component nametagWithPing(Entity entity, @Nullable Component nameTag) {
-		if (!ACTIVE || !EsadConfig.PING_NAMETAG.get() || !(entity instanceof AbstractClientPlayer player) || nameTag == null) {
+		if (!ACTIVE || !EsadConfig.PING_ENABLED.get() || !EsadConfig.PING_NAMETAG.get()
+			|| !(entity instanceof AbstractClientPlayer player) || nameTag == null) {
 			return null;
 		}
 		ClientPacketListener connection = Minecraft.getInstance().getConnection();
