@@ -1,0 +1,46 @@
+{
+  "key.category.esad.main": "EssentialAdditions",
+  "key.esad.zoom": "Zoomen",
+
+  "config.esad.category.zoom": "Zoom",
+  "config.esad.group.scroll": "Mausrad",
+  "config.esad.group.animation": "Animation",
+  "config.esad.group.camera": "Kamera",
+
+  "config.esad.zoomEnabled": "Zoom aktivieren",
+  "config.esad.zoomKey": "Zoom-Taste",
+  "config.esad.zoomMode": "Tastenmodus",
+  "config.esad.zoomMode.tooltip": "Halten: Zoomt, solange die Taste gedrückt ist.\nUmschalten: Jeder Tastendruck schaltet den Zoom an oder aus.",
+  "config.esad.zoomMode.hold": "Halten",
+  "config.esad.zoomMode.toggle": "Umschalten",
+  "config.esad.zoomLevel": "Zoomstufe",
+  "config.esad.zoomLevel.tooltip": "Wie weit beim Drücken der Taste hineingezoomt wird.",
+
+  "config.esad.scrollZoom": "Mit Mausrad zoomen",
+  "config.esad.scrollZoom.tooltip": "Beim Zoomen mit dem Mausrad weiter hinein- oder herauszoomen. Der Hotbar-Slot wechselt währenddessen nicht.",
+  "config.esad.scrollStep": "Schrittweite",
+  "config.esad.scrollStep.tooltip": "Jeder Mausrad-Schritt multipliziert oder teilt den Zoom durch diesen Wert.",
+  "config.esad.maxZoom": "Maximaler Zoom",
+  "config.esad.retainScrollZoom": "Mausrad-Zoom merken",
+  "config.esad.retainScrollZoom.tooltip": "Behält die per Mausrad eingestellte Zoomstufe für den nächsten Zoom, statt zur normalen Zoomstufe zurückzukehren.",
+
+  "config.esad.zoomInTime": "Dauer Hineinzoomen",
+  "config.esad.zoomInTime.tooltip": "Länge der Animation beim Hineinzoomen. 0 zoomt sofort.",
+  "config.esad.zoomOutTime": "Dauer Herauszoomen",
+  "config.esad.zoomOutTime.tooltip": "Länge der Animation beim Herauszoomen. 0 zoomt sofort.",
+  "config.esad.zoomEasing": "Animationskurve",
+  "config.esad.zoomEasing.linear": "Linear",
+  "config.esad.zoomEasing.sine": "Sinus",
+  "config.esad.zoomEasing.quad": "Quadratisch",
+  "config.esad.zoomEasing.cubic": "Kubisch",
+  "config.esad.zoomEasing.expo": "Exponentiell",
+  "config.esad.smoothScroll": "Weiches Scrollen",
+  "config.esad.smoothScroll.tooltip": "Animiert Zoom-Änderungen per Mausrad, statt zu springen.",
+
+  "config.esad.relativeSensitivity": "Relative Empfindlichkeit",
+  "config.esad.relativeSensitivity.tooltip": "Senkt die Mausempfindlichkeit, je weiter hineingezoomt wird. Bei 100% fühlt sich das Zielen bei jeder Zoomstufe gleich an, bei 0% bleibt die normale Empfindlichkeit.",
+  "config.esad.cinematicCamera": "Filmische Kamera",
+  "config.esad.cinematicCamera.tooltip": "Glättet die Kamerabewegung beim Zoomen, wie die filmische Kamera von Vanilla.",
+  "config.esad.hideHand": "Hand ausblenden",
+  "config.esad.hideHand.tooltip": "Blendet Hand und gehaltenen Gegenstand beim Zoomen aus."
+}

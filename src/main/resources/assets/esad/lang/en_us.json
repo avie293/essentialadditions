@@ -1,0 +1,46 @@
+{
+  "key.category.esad.main": "EssentialAdditions",
+  "key.esad.zoom": "Zoom",
+
+  "config.esad.category.zoom": "Zoom",
+  "config.esad.group.scroll": "Scroll Wheel",
+  "config.esad.group.animation": "Animation",
+  "config.esad.group.camera": "Camera",
+
+  "config.esad.zoomEnabled": "Enable Zoom",
+  "config.esad.zoomKey": "Zoom Key",
+  "config.esad.zoomMode": "Key Mode",
+  "config.esad.zoomMode.tooltip": "Hold: zooms while the key is held down.\nToggle: each key press switches the zoom on or off.",
+  "config.esad.zoomMode.hold": "Hold",
+  "config.esad.zoomMode.toggle": "Toggle",
+  "config.esad.zoomLevel": "Zoom Level",
+  "config.esad.zoomLevel.tooltip": "How far you zoom in when you press the key.",
+
+  "config.esad.scrollZoom": "Scroll to Zoom",
+  "config.esad.scrollZoom.tooltip": "Use the scroll wheel to zoom further in or out while zooming. The hotbar slot does not change meanwhile.",
+  "config.esad.scrollStep": "Scroll Step",
+  "config.esad.scrollStep.tooltip": "Each scroll step multiplies or divides the zoom by this value.",
+  "config.esad.maxZoom": "Max Zoom",
+  "config.esad.retainScrollZoom": "Remember Scroll Zoom",
+  "config.esad.retainScrollZoom.tooltip": "Keeps the zoom level you scrolled to for the next zoom instead of going back to the zoom level.",
+
+  "config.esad.zoomInTime": "Zoom In Time",
+  "config.esad.zoomInTime.tooltip": "Length of the zoom in animation. 0 zooms in instantly.",
+  "config.esad.zoomOutTime": "Zoom Out Time",
+  "config.esad.zoomOutTime.tooltip": "Length of the zoom out animation. 0 zooms out instantly.",
+  "config.esad.zoomEasing": "Animation Curve",
+  "config.esad.zoomEasing.linear": "Linear",
+  "config.esad.zoomEasing.sine": "Sine",
+  "config.esad.zoomEasing.quad": "Quadratic",
+  "config.esad.zoomEasing.cubic": "Cubic",
+  "config.esad.zoomEasing.expo": "Exponential",
+  "config.esad.smoothScroll": "Smooth Scrolling",
+  "config.esad.smoothScroll.tooltip": "Animates zoom changes from the scroll wheel instead of jumping.",
+
+  "config.esad.relativeSensitivity": "Relative Sensitivity",
+  "config.esad.relativeSensitivity.tooltip": "Lowers the mouse sensitivity the further you zoom in. 100% keeps aiming feeling the same at every zoom level, 0% keeps the normal sensitivity.",
+  "config.esad.cinematicCamera": "Cinematic Camera",
+  "config.esad.cinematicCamera.tooltip": "Smooths the camera movement while zooming, like the vanilla cinematic camera.",
+  "config.esad.hideHand": "Hide Hand",
+  "config.esad.hideHand.tooltip": "Hides your hand and held item while zooming."
+}
