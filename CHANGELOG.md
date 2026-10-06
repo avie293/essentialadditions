@@ -9,8 +9,10 @@ First release. EssentialAdditions bundles small quality of life features in one 
 be turned on and off on its own, and all of them are configured in one settings window.
 
 ### Settings window
-- Own settings window in the style of TabbyLib. At the top there is a row of cards, one for every feature, with an
+- Own settings window in the style of TabbyLib. At the top there is a grid of cards, one for every feature, with an
   item icon, the name and a switch that turns the feature on or off. Turned off features are shown greyed out.
+- The cards wrap into rows that fit the window width. At most two rows are visible at once, the others are reached
+  with the mouse wheel over the cards (with a small scroll bar); the selected card is always scrolled into view.
 - Clicking a card shows the settings of that feature below the cards: title, short description and the TabbyLib
   option rows (sliders, toggles, color pickers, key bindings, HUD position editor, ...).
 - Hovering a card shows the description of the feature, hovering the switch shows whether it is on or off.
@@ -97,6 +99,68 @@ be turned on and off on its own, and all of them are configured in one settings 
   next), five configurable colors and three ping limits.
 - "ms" behind the number, text shadow and the text for an unknown ping can be changed.
 - If the standalone Ping Display mod is installed, this feature turns itself off so the ping is not shown twice.
+
+### Fullbright
+- Makes everything bright in the dark, as if you had the night vision effect. Toggled with a key (default: G).
+- Works through the night vision strength of the light map, so it needs no gamma values above the vanilla limit and
+  looks exactly like the vanilla effect, without the effect icon or particles.
+- Strength from 10% to 100% (100% is as bright as night vision).
+- Optional "Fullbright: On / Off" message above the hotbar when toggled.
+- Off by default; the switch on its card and the key do the same.
+
+### Info HUD
+- A movable box with information about your surroundings and the game. Every line can be turned on and off:
+  - Coordinates (block position, or the exact position with one decimal).
+  - Nether / Overworld coordinates: in the Overworld the matching Nether coordinates (divided by 8), in the Nether
+    the matching Overworld coordinates (times 8). Handy for linking portals.
+  - Facing: compass direction with the axis, e.g. "North (-Z)".
+  - Biome, translated into the game language.
+  - Light level: block light and sky light at your feet (mobs spawn at block light 0).
+  - FPS.
+  - Ping (your own latency from the player list).
+  - Real time clock of your computer, as 24 hour or 12 hour clock.
+- Label and value colors can be changed (default: orange labels, white values).
+- Appearance like every HUD of the mod: position (dragged in the TabbyLib HUD editor, default top left), size
+  (0.5x - 3x), background with own color and text shadow.
+- Also replaces a separate FPS / ping HUD: both are lines of this box.
+- Off by default.
+
+### Armor HUD
+- Shows your helmet, chestplate, leggings and boots, and optionally the items in your main hand and off hand, as
+  item icons with their durability.
+- Layout: vertical (one item below the other) or horizontal (side by side).
+- Durability as number, as percent or not at all, plus the item's durability bar (can be turned off).
+- Held items without durability (blocks, arrows, food) show how many of them are in your whole inventory (can be
+  turned off, then the stack size is shown).
+- Warning: items with less durability left than the warning limit (0 - 50%, default 10%) are drawn in red, and a
+  blinking "Low durability!" appears above the HUD (can be turned off). 0% turns the warning off.
+- Appearance like every HUD of the mod: position (default bottom right), size, background and text shadow.
+- The HUD editor preview uses your real equipment, or example items when you wear nothing.
+- Off by default.
+
+### Effects HUD
+- Shows your active status effects as a list with the vanilla effect icon, the name with level (e.g. "Speed II")
+  and the remaining time. Names and time can be turned off separately.
+- Sorting: as added, ending first or good effects first.
+- Colors by type: good effects in green, bad effects in red (can be turned off).
+- The icon blinks during the last seconds of an effect (0 - 30 seconds, default 10, 0 turns it off).
+- Hides the vanilla effect icons at the top right while the HUD is on (can be turned off).
+- Effects that hide their icon (e.g. from beacons set to hide particles) are left out, like in vanilla.
+- Appearance like every HUD of the mod: position (default top right), size, background and text shadow. The HUD
+  editor preview shows example effects when you have none.
+- Off by default.
+- Version specific: in 26.3 the vanilla effect icons are drawn by the new `Hud` class instead of `Gui`.
+
+### Keystrokes
+- Overlay with the movement keys (W / A / S / D layout), the mouse buttons and the jump key that light up while
+  pressed, like in PvP clients.
+- Shows the keys you really bound, so it also works with other keyboard layouts or changed controls.
+- Clicks per second (CPS) of the last second on the mouse buttons, or "LMB" / "RMB" without it.
+- Mouse buttons and jump key can be turned off.
+- Own colors for keys, pressed keys, text and pressed text (with transparency).
+- Appearance like every HUD of the mod: position (default bottom left), size and text shadow; the background box
+  behind all keys is off by default, as every key has its own.
+- Off by default.
 
 ### General
 - Requires Fabric Loader 0.19.5+, Fabric API and TabbyLib 1.1.0+.
