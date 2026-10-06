@@ -16,8 +16,7 @@ import net.minecraft.util.Mth;
  * and not on game ticks.
  */
 public final class Zoom {
-	public static final KeyMapping.Category CATEGORY = KeyMapping.Category.register(EssentialAdditions.id("main"));
-	public static final KeyMapping KEY = new KeyMapping("key.esad.zoom", InputConstants.KEY_C, CATEGORY);
+	public static final KeyMapping KEY = new KeyMapping("key.esad.zoom", InputConstants.KEY_C, EssentialAdditions.KEY_CATEGORY);
 
 	/** How fast the smooth scroll zoom follows the target, higher is faster. */
 	private static final double SCROLL_SMOOTHING = 15.0;
