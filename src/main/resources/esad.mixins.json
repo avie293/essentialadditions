@@ -6,8 +6,11 @@
 		"CameraMixin",
 		"EntityRendererMixin",
 		"HandRendererMixin",
+		"ItemStackMixin",
 		"LightCoordsMixin",
-		"MouseHandlerMixin"
+		"MouseHandlerMixin",
+		"NametagPingMixin",
+		"PlayerTabOverlayMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
