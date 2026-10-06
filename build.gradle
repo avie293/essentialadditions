@@ -13,6 +13,7 @@ repositories {
 		name = "TabbyLib"
 		url = "https://avie.cc/maven"
 	}
+	mavenLocal() // TEMP: TabbyLib 1.1.0 until it is on avie.cc
 }
 
 dependencies {

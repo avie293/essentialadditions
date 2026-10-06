@@ -5,7 +5,11 @@ import cc.avie.esad.feature.daycounter.DayCounter;
 import cc.avie.esad.feature.dynamiclights.DynamicLights;
 import cc.avie.esad.feature.tooltips.AdvancedTooltips;
 import cc.avie.esad.feature.zoom.Zoom;
+import cc.avie.esad.gui.EsadConfigScreen;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.resources.Identifier;
@@ -29,6 +33,11 @@ public class EssentialAdditions implements ClientModInitializer {
 		EsadConfig.init();
 		DynamicLights.register();
 		AdvancedTooltips.register();
+		ClientCommandRegistrationCallback.EVENT.register((dispatcher, registryAccess) -> dispatcher.register(
+			LiteralArgumentBuilder.<FabricClientCommandSource>literal(MOD_ID).executes(context -> {
+				EsadConfigScreen.open(null);
+				return 1;
+			})));
 	}
 
 	public static Identifier id(String path) {
