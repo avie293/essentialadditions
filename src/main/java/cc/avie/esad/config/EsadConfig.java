@@ -13,6 +13,9 @@ import cc.avie.esad.feature.tooltips.TooltipMode;
 import cc.avie.esad.feature.zoom.Zoom;
 import cc.avie.esad.feature.zoom.ZoomEasing;
 import cc.avie.esad.feature.zoom.ZoomMode;
+import cc.avie.esad.gui.EsadConfigScreen;
+import cc.avie.esad.gui.Feature;
+import me.avie29.tabbylib.api.ConfigCategory;
 import me.avie29.tabbylib.api.HudPosition;
 import me.avie29.tabbylib.api.TabbyConfig;
 import me.avie29.tabbylib.api.option.BooleanOption;
@@ -24,13 +27,20 @@ import me.avie29.tabbylib.api.option.IntOption;
 import me.avie29.tabbylib.api.option.KeyBindOption;
 import me.avie29.tabbylib.api.option.StringOption;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /** All settings of the mod, shown in the TabbyLib config screen and saved in config/esad.json. */
 public final class EsadConfig {
 	// ---------------------------------------------------------------- zoom
-	public static final BooleanOption ZOOM_ENABLED = BooleanOption.builder("zoomEnabled", true).build();
+	public static final BooleanOption ZOOM_ENABLED = BooleanOption.builder("zoomEnabled", true).hidden().build();
 	public static final KeyBindOption ZOOM_KEY = KeyBindOption.builder("zoomKey", Zoom.KEY).build();
 	public static final EnumOption<ZoomMode> ZOOM_MODE = EnumOption.builder("zoomMode", ZoomMode.HOLD)
 		.dependsOn(ZOOM_ENABLED).build();
@@ -63,7 +73,7 @@ public final class EsadConfig {
 		.dependsOn(ZOOM_ENABLED).build();
 
 	// ---------------------------------------------------------------- dynamic lights
-	public static final BooleanOption DYNAMIC_LIGHTS_ENABLED = BooleanOption.builder("dynamicLightsEnabled", true).build();
+	public static final BooleanOption DYNAMIC_LIGHTS_ENABLED = BooleanOption.builder("dynamicLightsEnabled", true).hidden().build();
 	public static final EnumOption<UpdateRate> DYNAMIC_LIGHTS_UPDATE_RATE = EnumOption.builder("dynamicLightsUpdateRate", UpdateRate.REALTIME)
 		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
 	public static final IntOption DYNAMIC_LIGHTS_RANGE = IntOption.builder("dynamicLightsRange", 64)
@@ -83,7 +93,7 @@ public final class EsadConfig {
 		.dependsOn(DYNAMIC_LIGHTS_ENABLED).build();
 
 	// ---------------------------------------------------------------- tooltips
-	public static final BooleanOption TOOLTIPS_ENABLED = BooleanOption.builder("tooltipsEnabled", true).build();
+	public static final BooleanOption TOOLTIPS_ENABLED = BooleanOption.builder("tooltipsEnabled", true).hidden().build();
 	public static final BooleanOption TOOLTIP_SHIFT_HINT = BooleanOption.builder("tooltipShiftHint", true)
 		.dependsOn(TOOLTIPS_ENABLED).build();
 
@@ -118,7 +128,7 @@ public final class EsadConfig {
 		.slider(32, 128, 16).formatter(value -> Component.literal(value + " px")).dependsOn(TOOLTIPS_ENABLED).build();
 
 	// ---------------------------------------------------------------- day counter
-	public static final BooleanOption DAY_COUNTER_VISIBLE = BooleanOption.builder("dayCounterVisible", true).build();
+	public static final BooleanOption DAY_COUNTER_VISIBLE = BooleanOption.builder("dayCounterVisible", true).hidden().build();
 	public static final KeyBindOption DAY_COUNTER_TOGGLE_KEY = KeyBindOption.builder("dayCounterToggleKey", DayCounter.TOGGLE_KEY).build();
 	public static final HudPositionOption DAY_COUNTER_POSITION = HudPositionOption.builder("dayCounterPosition",
 		HudPosition.of(HudPosition.CENTER, HudPosition.END, 0, -50), DayCounterHud::preview).build();
@@ -146,12 +156,13 @@ public final class EsadConfig {
 	public static final BooleanOption DAY_COUNTER_DEBUG = BooleanOption.builder("dayCounterDebug", false).build();
 
 	// ---------------------------------------------------------------- ping display
-	public static final BooleanOption PING_TAB_LIST = BooleanOption.builder("pingTabList", true).build();
+	public static final BooleanOption PING_ENABLED = BooleanOption.builder("pingDisplayEnabled", true).hidden().build();
+	public static final BooleanOption PING_TAB_LIST = BooleanOption.builder("pingTabList", true).dependsOn(PING_ENABLED).build();
 	public static final BooleanOption PING_SHOW_MS = BooleanOption.builder("pingShowMs", true).build();
 	public static final BooleanOption PING_TEXT_SHADOW = BooleanOption.builder("pingTextShadow", true).build();
 	public static final StringOption PING_UNKNOWN_TEXT = StringOption.builder("pingUnknownText", "N/A").maxLength(8).build();
 
-	public static final BooleanOption PING_NAMETAG = BooleanOption.builder("pingNametag", false).build();
+	public static final BooleanOption PING_NAMETAG = BooleanOption.builder("pingNametag", false).dependsOn(PING_ENABLED).build();
 	public static final ColorOption PING_BRACKET_COLOR = ColorOption.builder("pingBracketColor", 0xFFAAAAAA)
 		.dependsOn(PING_NAMETAG).build();
 
@@ -176,16 +187,22 @@ public final class EsadConfig {
 
 	public static void init() {
 		TabbyConfig.Builder builder = TabbyConfig.builder(EssentialAdditions.MOD_ID)
+			// Own settings window, the TabbyLib screen only shows the description and a button to it
+			.description(Component.translatable("esad.description"))
+			.screen(EsadConfigScreen::new)
 			.category("zoom", category -> category
+				.file("esad/zoom")
 				.add(ZOOM_ENABLED, ZOOM_KEY, ZOOM_MODE, ZOOM_LEVEL)
 				.group("scroll", group -> group.add(SCROLL_ZOOM, SCROLL_STEP, MAX_ZOOM, RETAIN_SCROLL_ZOOM))
 				.group("animation", group -> group.add(ZOOM_IN_TIME, ZOOM_OUT_TIME, ZOOM_EASING, SMOOTH_SCROLL))
 				.group("camera", group -> group.add(RELATIVE_SENSITIVITY, CINEMATIC_CAMERA, HIDE_HAND)))
 			.category("dynamicLights", category -> category
+				.file("esad/dynamiclights")
 				.add(DYNAMIC_LIGHTS_ENABLED, DYNAMIC_LIGHTS_UPDATE_RATE, DYNAMIC_LIGHTS_RANGE)
 				.group("lightSources", group -> group.add(DYNAMIC_LIGHTS_SELF, DYNAMIC_LIGHTS_HELD_ITEMS,
 					DYNAMIC_LIGHTS_DROPPED_ITEMS, DYNAMIC_LIGHTS_BURNING, DYNAMIC_LIGHTS_ENTITIES, DYNAMIC_LIGHTS_WATER_SENSITIVE)))
 			.category("tooltips", category -> category
+				.file("esad/tooltip")
 				.add(TOOLTIPS_ENABLED, TOOLTIP_SHIFT_HINT)
 				.group("durability", group -> group.add(TOOLTIP_DURABILITY, TOOLTIP_DURABILITY_STYLE, TOOLTIP_DURABILITY_COLOR,
 					TOOLTIP_DURABILITY_LABEL, TOOLTIP_DURABILITY_WHEN_FULL))
@@ -196,6 +213,7 @@ public final class EsadConfig {
 		// The tabs are left out when the standalone mods are installed, their own settings apply then
 		if (DayCounter.isActive()) {
 			builder.category("dayCounter", category -> category
+				.file("esad/daycounter")
 				.add(DAY_COUNTER_VISIBLE, DAY_COUNTER_TOGGLE_KEY, DAY_COUNTER_POSITION)
 				.group("dayCounterText", group -> group.add(DAY_COUNTER_FORMAT, DAY_COUNTER_CUSTOM_TEXT, DAY_COUNTER_TWELVE_HOUR))
 				.group("dayCounterAppearance", group -> group.add(DAY_COUNTER_TEXT_COLOR, DAY_COUNTER_TEXT_SHADOW, DAY_COUNTER_SCALE,
@@ -204,6 +222,8 @@ public final class EsadConfig {
 		}
 		if (PingDisplay.isActive()) {
 			builder.category("pingDisplay", category -> category
+				.file("esad/pingdisplay")
+				.add(PING_ENABLED)
 				.group("pingTabList", group -> group.add(PING_TAB_LIST, PING_SHOW_MS, PING_TEXT_SHADOW, PING_UNKNOWN_TEXT))
 				.group("pingNametags", group -> group.add(PING_NAMETAG, PING_BRACKET_COLOR))
 				.group("pingColors", group -> group.add(PING_COLOR_MODE, PING_COLOR_GOOD, PING_COLOR_OK, PING_COLOR_BAD,
@@ -213,6 +233,44 @@ public final class EsadConfig {
 					.add(PING_GOOD_BELOW, PING_OK_BELOW, PING_BAD_BELOW)));
 		}
 		CONFIG = builder.build();
+		removeOldFile();
+	}
+
+	/**
+	 * Before every feature got its own file in config/esad/, everything was in config/esad.json. TabbyLib takes
+	 * the values over into the new files while loading, the old file is not needed anymore then.
+	 */
+	private static void removeOldFile() {
+		Path old = CONFIG.getFile();
+		if (CONFIG.getFiles().contains(old)) {
+			return;
+		}
+		try {
+			if (Files.deleteIfExists(old)) {
+				EssentialAdditions.LOGGER.info("Moved the settings from {} into config/esad/", old.getFileName());
+			}
+		} catch (IOException e) {
+			EssentialAdditions.LOGGER.warn("Could not delete the old config file {}", old, e);
+		}
+	}
+
+	/** The cards of the settings window, in the order of the categories. */
+	public static List<Feature> features() {
+		List<Feature> features = new ArrayList<>();
+		for (ConfigCategory category : CONFIG.getCategories()) {
+			Feature feature = switch (category.getKey()) {
+				case "zoom" -> new Feature(category, new ItemStack(Items.SPYGLASS), ZOOM_ENABLED);
+				case "dynamicLights" -> new Feature(category, new ItemStack(Items.TORCH), DYNAMIC_LIGHTS_ENABLED);
+				case "tooltips" -> new Feature(category, new ItemStack(Items.WRITABLE_BOOK), TOOLTIPS_ENABLED);
+				case "dayCounter" -> new Feature(category, new ItemStack(Items.CLOCK), DAY_COUNTER_VISIBLE);
+				case "pingDisplay" -> new Feature(category, new ItemStack(Items.COMPASS), PING_ENABLED);
+				default -> null;
+			};
+			if (feature != null) {
+				features.add(feature);
+			}
+		}
+		return features;
 	}
 
 	private static Component multiplier(double value) {

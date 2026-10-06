@@ -256,5 +256,17 @@
   "config.esad.pingGoodBelow": "Good below",
   "config.esad.pingOkBelow": "Mid below",
   "config.esad.pingBadBelow": "Bad below",
-  "config.esad.pingRanges.description": "Everything at or above the last value counts as terrible."
+  "config.esad.pingRanges.description": "Everything at or above the last value counts as terrible.",
+
+  "esad.screen.title": "EssentialAdditions",
+  "esad.description": "Small quality of life features in one mod: zoom, dynamic lights, advanced tooltips, a day counter and a ping display. Every feature can be turned on and off on its own.",
+  "esad.screen.reset": "Reset Feature",
+  "esad.screen.reset.tooltip": "Resets every setting of the selected feature to its default. Nothing is saved until you press Save.",
+  "esad.screen.switch.on": "On, click to turn it off",
+  "esad.screen.switch.off": "Off, click to turn it on",
+  "esad.feature.zoom.description": "Zoom in with a key, with smooth animation and scroll wheel zoom.",
+  "esad.feature.dynamicLights.description": "Held torches, dropped light items and burning mobs light up their surroundings.",
+  "esad.feature.tooltips.description": "Extra item info: durability, food values, burn time, enchantment descriptions and more.",
+  "esad.feature.dayCounter.description": "Shows the current Minecraft day on screen.",
+  "esad.feature.pingDisplay.description": "The ping as colored number in the tab list and on name tags."
 }
