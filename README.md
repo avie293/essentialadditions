@@ -9,6 +9,8 @@ Zoom, dynamic lights, better tooltips, HUD elements and more, each one switchabl
 
 [Issues](https://github.com/avie293/avie-issues/issues) · [Source](https://github.com/avie293/essentialadditions) · [avie.cc](https://avie.cc/)
 
+<img src="https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/banner-transparent.png" alt="EssentialAdditions">
+
 </div>
 
 ---
