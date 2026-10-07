@@ -198,7 +198,9 @@ public final class AdvancedTooltips {
 		float speed = tool.defaultMiningSpeed();
 		String tier = null;
 		for (Tool.Rule rule : tool.rules()) {
-			if (rule.speed().isPresent()) {
+			// Only the "mineable/..." tags count, swords also have a rule that mines bamboo instantly (Float.MAX_VALUE)
+			boolean mineable = rule.blocks().unwrapKey().map(key -> key.location().getPath().startsWith("mineable/")).orElse(false);
+			if (mineable && rule.speed().isPresent()) {
 				speed = Math.max(speed, rule.speed().get());
 			}
 			// Tiers deny the blocks they can not mine: "incorrect_for_iron_tool" means iron level
