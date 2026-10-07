@@ -3,6 +3,14 @@
 All notable changes to EssentialAdditions are listed here. Every Minecraft version (26.1, 26.1.1, 26.1.2, 26.2 and
 26.3) gets the same features unless a section says otherwise.
 
+## 1.0.3 (unreleased)
+
+### Fixed
+- Advanced Tooltips showed "Mining speed: 9223372036854775807" on swords. The tool info took the highest speed of
+  all mining rules of the item, and since 1.21.5 swords have a rule that mines bamboo instantly with the largest
+  possible speed. Now only the rules for the "mineable/..." block tags count as mining speed, so swords (which have
+  no such rule) show no tool info again, like shears and other items that only mine a few blocks.
+
 ## 1.0.2 (unreleased)
 
 ### Fixed
