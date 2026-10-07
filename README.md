@@ -1,6 +1,4 @@
-<div align="center">
-
-<img src="https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/logo.png" width="128" alt="EssentialAdditions logo">
+<p align="center"><img src="https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/logo.png" width="128" alt="EssentialAdditions logo"></p>
 
 # EssentialAdditions
 
@@ -9,9 +7,7 @@ Zoom, dynamic lights, better tooltips, HUD elements and more, each one switchabl
 
 [Issues](https://github.com/avie293/avie-issues/issues) · [Source](https://github.com/avie293/essentialadditions) · [avie.cc](https://avie.cc/)
 
-<img src="https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/banner-transparent.png" alt="EssentialAdditions">
-
-</div>
+![EssentialAdditions](https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/banner-transparent.png)
 
 ---
 
@@ -22,6 +18,7 @@ Every feature can be turned on or off on its own, and every one has its own sett
 ### Zoom
 
 Zoom like OptiFine or Zoomify, on **C** by default.
+
 - Hold the key or press it once to toggle
 - Scroll while zooming to zoom further in or out (up to 50x)
 - Smooth animations, smooth scrolling and adjustable durations
@@ -33,6 +30,7 @@ Zoom like OptiFine or Zoomify, on **C** by default.
 ### Dynamic Lights
 
 Light sources light up their surroundings while they move, like LambDynamicLights.
+
 - Torches, lanterns, glowstone and other light items in your hands or in the hands of other players and mobs
 - Dropped light items on the ground
 - Burning mobs and players, glowing mobs like blazes, magma cubes and glow squids, fireballs, lit TNT and creepers
@@ -43,6 +41,7 @@ Light sources light up their surroundings while they move, like LambDynamicLight
 ### Advanced Tooltips
 
 More information on items. Each line can be shown always, only while holding Shift, or never.
+
 - **Durability** as numbers or a bar, colored by the remaining durability
 - **Food values**: hunger and saturation
 - **Burn time** of fuels in the furnace
@@ -59,6 +58,7 @@ More information on items. Each line can be shown always, only while holding Shi
 ### HUD
 
 All HUD elements can be moved, scaled and styled in the HUD editor.
+
 - **Info HUD**: coordinates, Nether/Overworld coordinates, facing, biome, FPS, ping, light level, clock and more
 - **Armor HUD**: armor and held items with durability and a warning before something breaks
 - **Effects HUD**: status effects with name, level and remaining time
