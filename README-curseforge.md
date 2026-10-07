@@ -1,17 +1,13 @@
-<div align="center">
+<p align="center" style="text-align: center;"><img src="https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/logo.png" width="128" alt="EssentialAdditions logo"></p>
 
-<img src="https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/logo.png" width="128" alt="EssentialAdditions logo">
+<h1 align="center" style="text-align: center;">EssentialAdditions</h1>
 
-# EssentialAdditions
+<p align="center" style="text-align: center;"><strong>Many small quality of life features in one client-side mod.</strong><br>
+Zoom, dynamic lights, better tooltips, HUD elements and more, each one switchable and configurable in one settings window.</p>
 
-**Many small quality of life features in one client-side mod.**
-Zoom, dynamic lights, better tooltips, HUD elements and more, each one switchable and configurable in one settings window.
+<p align="center" style="text-align: center;"><a href="https://github.com/avie293/avie-issues/issues">Issues</a> · <a href="https://github.com/avie293/essentialadditions">Source</a> · <a href="https://avie.cc/">avie.cc</a></p>
 
-[Issues](https://github.com/avie293/avie-issues/issues) · [Source](https://github.com/avie293/essentialadditions) · [avie.cc](https://avie.cc/)
-
-<img src="https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/banner-transparent.png" alt="EssentialAdditions">
-
-</div>
+<p align="center" style="text-align: center;"><img src="https://raw.githubusercontent.com/avie293/essentialadditions/main/screenshots/banner-transparent.png" alt="EssentialAdditions"></p>
 
 ---
 
