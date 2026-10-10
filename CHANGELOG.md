@@ -3,7 +3,7 @@
 All notable changes to EssentialAdditions are listed here. Every Minecraft version (26.1, 26.1.1, 26.1.2, 26.2 and
 26.3) gets the same features unless a section says otherwise.
 
-## 1.0.4 (unreleased, only 26.2)
+## 1.0.4 (only 26.2)
 
 ### Fixed
 - The 26.2 version crashed while the game was starting. The mixin that hides the vanilla effect icons (for the
@@ -12,7 +12,7 @@ All notable changes to EssentialAdditions are listed here. Every Minecraft versi
   fails when the game loads the class. The 26.2 version now uses the same mixin as 26.3. The other versions are not
   affected and stay at 1.0.3.
 
-## 1.0.3 (unreleased)
+## 1.0.3
 
 ### Fixed
 - Advanced Tooltips showed "Mining speed: 9223372036854775807" on swords. The tool info took the highest speed of
@@ -30,7 +30,7 @@ All notable changes to EssentialAdditions are listed here. Every Minecraft versi
   The item tabs and the search are not affected, so the key can still be typed into the search field. Middle click
   stays off in creative, where it copies items.
 
-## 1.0.1
+## 1.0.1 (unreleased)
 
 ### Fixed
 - The settings window could not be opened from the main menu, only in a world: the "Settings" button in the
