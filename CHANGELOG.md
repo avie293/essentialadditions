@@ -3,6 +3,15 @@
 All notable changes to EssentialAdditions are listed here. Every Minecraft version (26.1, 26.1.1, 26.1.2, 26.2 and
 26.3) gets the same features unless a section says otherwise.
 
+## 1.0.4 (unreleased, only 26.2)
+
+### Fixed
+- The 26.2 version crashed while the game was starting. The mixin that hides the vanilla effect icons (for the
+  Effects HUD) looked for the method `extractEffects` in the class `Gui`, but since 26.2 the effect icons are drawn
+  by the new class `Hud`, like in 26.3. The 26.2 version was still using the mixin of 26.1, which compiles fine but
+  fails when the game loads the class. The 26.2 version now uses the same mixin as 26.3. The other versions are not
+  affected and stay at 1.0.3.
+
 ## 1.0.3 (unreleased)
 
 ### Fixed
